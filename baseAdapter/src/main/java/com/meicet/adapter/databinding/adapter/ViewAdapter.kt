@@ -2,8 +2,8 @@ package com.meicet.adapter.databinding.adapter
 
 import android.view.View
 import androidx.databinding.BindingAdapter
-import com.meicet.adapter._gone
-import com.meicet.adapter._visiable
+import com.meicet.adapter.utils.gone
+import com.meicet.adapter.utils.visiable
 
 
 /**
@@ -14,13 +14,13 @@ import com.meicet.adapter._visiable
 
 @BindingAdapter("gone")
 fun bindGone(view: View, gone: Boolean){
-    view._gone(gone)
+    view.gone(gone)
 }
 
 
 @BindingAdapter("visibility")
 fun bindVisibility(view: View, visibility: Boolean){
-    view._visiable(visibility)
+    view.visiable(visibility)
 }
 
 

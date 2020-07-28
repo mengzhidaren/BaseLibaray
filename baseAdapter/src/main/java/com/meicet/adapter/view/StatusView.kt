@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.meicet.adapter.R
-import com.meicet.adapter._gone
+import com.meicet.adapter.utils.gone
 import kotlinx.android.synthetic.main._status_view.view.*
 
 class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, attr),
@@ -85,9 +85,9 @@ class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, a
 
     private fun refreshView() {
 
-        emptyView._gone(currentState != status_empty)
-        loadView._gone(currentState != status_loading)
-        errorView._gone(currentState != status_error)
+        emptyView.gone(currentState != status_empty)
+        loadView.gone(currentState != status_loading)
+        errorView.gone(currentState != status_error)
     }
 
 
