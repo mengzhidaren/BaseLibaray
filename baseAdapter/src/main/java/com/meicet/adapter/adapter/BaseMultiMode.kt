@@ -1,4 +1,5 @@
-package com.meicet.adapter
+package com.meicet.adapter.adapter
+
 
 
 abstract class BaseMultiMode {

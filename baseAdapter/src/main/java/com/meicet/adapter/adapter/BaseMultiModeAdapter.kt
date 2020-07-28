@@ -1,4 +1,4 @@
-package com.meicet.adapter
+package com.meicet.adapter.adapter
 
 
 import android.util.Log

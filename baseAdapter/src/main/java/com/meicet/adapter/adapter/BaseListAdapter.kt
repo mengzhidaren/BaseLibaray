@@ -1,4 +1,4 @@
-package com.meicet.adapter
+package com.meicet.adapter.adapter
 
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.module.LoadMoreModule
