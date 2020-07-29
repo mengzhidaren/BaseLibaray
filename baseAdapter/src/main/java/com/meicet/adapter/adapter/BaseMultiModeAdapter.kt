@@ -3,13 +3,36 @@ package com.meicet.adapter.adapter
 
 import android.util.Log
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 
 //多类型适配  继承BaseMultiMode
 open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
     BaseListAdapter<BaseMultiMode>(0, list) {
-    val tag = "BaseMultiModeAdapter"
+    private  val tag = "BaseMultiModeAdapter"
 
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        setGridSpanSizeLookup { gridLayoutManager, viewType, position ->
+            var spanCount = gridLayoutManager.spanCount
+            run breaking@{
+                var currentIndex = 0
+                data.forEachIndexed findValue@{ index, baseMultiMode ->
+                    val count = baseMultiMode.getItemCount()
+                    val max = currentIndex + count
+                    if (position < max) {
+                        val pos = count - (max - position)
+                        spanCount = data[index].getGridSpanSize(spanCount, pos)
+                        return@breaking
+                    } else {
+                        currentIndex = max
+                    }
+                }
+            }
+            spanCount
+        }
+        super.onAttachedToRecyclerView(recyclerView)
+    }
 
     override fun getDefItemCount(): Int {
         var length = 0
@@ -42,6 +65,11 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         return createBaseViewHolder(parent, viewType)
     }
 
+    //这里在 onCreateDefViewHolder 之后调用 用于databing
+    override fun onItemViewHolderCreated(viewHolder: BaseHolder, viewType: Int) {
+
+    }
+
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         when (holder.itemViewType) {
@@ -52,7 +80,7 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         }
     }
 
-    fun convertData(holder: BaseHolder, position: Int) {
+    private fun convertData(holder: BaseHolder, position: Int) {
         var currentIndex = 0
         data.forEachIndexed { index, baseMultiMode ->
             val count = baseMultiMode.getItemCount()
