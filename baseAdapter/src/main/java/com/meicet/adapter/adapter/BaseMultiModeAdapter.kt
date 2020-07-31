@@ -65,15 +65,24 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         return createBaseViewHolder(parent, viewType)
     }
 
-    //这里在 onCreateDefViewHolder 之后调用 用于databing
-    override fun onItemViewHolderCreated(viewHolder: BaseHolder, viewType: Int) {
-
-    }
+    //这里在 onCreateDefViewHolder 之后调用 用于databing  这里只在创建时调用一次
+    // 感觉没啥用  因为DataBindingUtil.bind<?>(view) 里面会根据tag找到缓存对像
+//    override fun onItemViewHolderCreated(viewHolder: BaseHolder, viewType: Int) {
+//        run bindingview@{
+//            data.forEach {
+//                if (it.layoutType == viewType) {
+//                    it.onDataBindingViewHolderCreate(viewHolder)
+//                    return@bindingview
+//                }
+//            }
+//        }
+//
+//    }
 
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         when (holder.itemViewType) {
-            LOAD_MORE_VIEW, HEADER_VIEW, EMPTY_VIEW, FOOTER_VIEW -> null
+            LOAD_MORE_VIEW, HEADER_VIEW, EMPTY_VIEW, FOOTER_VIEW -> {}
             else -> {
                 convertData(holder, position - headerLayoutCount)
             }
@@ -96,6 +105,7 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         _i(tag, "convertData  不可能的错误  position=$position")
     }
 
+    //当前adapter的position  在data中的下标
     fun findPositionIndex(position: Int): Int {
         var currentIndex = 0
         data.forEachIndexed { index, baseMultiMode ->
@@ -111,6 +121,22 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         return 0
     }
 
+    //在data中的下标 在adapter 中第一个显示位置position    indexMode从下标 0 开始
+    fun findIndexFirstPosition(dataIndex: Int): Int {
+        var currentIndex = 0
+        data.forEachIndexed { index, baseMultiMode ->
+            if (index == dataIndex) {
+                return currentIndex
+            } else {
+                currentIndex += baseMultiMode.getItemCount()
+            }
+        }
+        _i(tag, "findIndexFirstPosition  不可能的错误   indexMode=$dataIndex")
+        return 0
+    }
+
+    //弃用
+    @Deprecated("这里空实现  子类不要调用")
     override fun convert(holder: BaseHolder, item: BaseMultiMode) {
 
     }

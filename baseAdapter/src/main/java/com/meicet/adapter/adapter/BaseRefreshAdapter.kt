@@ -21,7 +21,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     private var refreshable: Refreshable? = null
     private var useStateView = true
-    protected fun closeStateView() {
+    fun closeStateView() {
         useStateView = false
     }
 
@@ -43,8 +43,8 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     fun setEmptyStatus(view: StatusListener){
         useStateView=true
-        statusView=view
         setEmptyView(view.getEmptyView())
+        statusView=view
         view.setCallBackStatus(object :StatusListener.OnCallBackStatus{
             override fun onClickError(statusEmpty: Boolean) {
                 onPullRefresh()
