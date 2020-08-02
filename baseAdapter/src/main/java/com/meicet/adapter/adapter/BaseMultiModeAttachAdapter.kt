@@ -11,7 +11,7 @@ open class BaseMultiModeAttachAdapter(list: MutableList<BaseMultiMode>? = null) 
         super.onViewAttachedToWindow(holder)
         val position = holder.adapterPosition - headerLayoutCount
         if (position >= 0) {
-            val index = findPositionIndex(position)
+            val index = findIndexByPosition(position)
             data[index].onViewAttachedToWindow(holder, position)
         }
     }
@@ -20,7 +20,7 @@ open class BaseMultiModeAttachAdapter(list: MutableList<BaseMultiMode>? = null) 
         super.onViewDetachedFromWindow(holder)
         val position = holder.adapterPosition - headerLayoutCount
         if (position >= 0) {
-            val index = findPositionIndex(position)
+            val index = findIndexByPosition(position)
             data[index].onViewDetachedFromWindow(holder, position)
         }
     }

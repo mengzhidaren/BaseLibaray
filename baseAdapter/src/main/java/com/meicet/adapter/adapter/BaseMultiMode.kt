@@ -1,10 +1,12 @@
 package com.meicet.adapter.adapter
+//layout 资源布局
+//type 主要用做查找 position功能
+abstract class BaseMultiMode(val layout: Int,val type:String=TYPE_NO) {
+    companion object{
+        const val TYPE_NO="-1"
+    }
 
-
-abstract class BaseMultiMode(val layout: Int) {
     val layoutType by lazy { layout }
-
-
     abstract fun bindData(holder: BaseHolder, position: Int)
 
     abstract fun getItemCount(): Int

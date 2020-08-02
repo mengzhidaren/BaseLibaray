@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 //多类型适配  继承BaseMultiMode
 open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
-    BaseListAdapter<BaseMultiMode>(0, list) {
-    private  val tag = "BaseMultiModeAdapter"
+        BaseListAdapter<BaseMultiMode>(0, list) {
+    private val tag = "BaseMultiModeAdapter"
 
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -82,7 +82,8 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         when (holder.itemViewType) {
-            LOAD_MORE_VIEW, HEADER_VIEW, EMPTY_VIEW, FOOTER_VIEW -> {}
+            LOAD_MORE_VIEW, HEADER_VIEW, EMPTY_VIEW, FOOTER_VIEW -> {
+            }
             else -> {
                 convertData(holder, position - headerLayoutCount)
             }
@@ -106,7 +107,7 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
     }
 
     //当前adapter的position  在data中的下标
-    fun findPositionIndex(position: Int): Int {
+    fun findIndexByPosition(position: Int): Int {
         var currentIndex = 0
         data.forEachIndexed { index, baseMultiMode ->
             val count = baseMultiMode.getItemCount()
@@ -119,6 +120,56 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         }
         _i(tag, "findPositionIndex  不可能的错误   position=$position")
         return 0
+    }
+
+    //当前adapter的type  在data中的下标
+    fun findIndexByType(type: String): Int {
+        data.forEachIndexed { index, baseMultiMode ->
+            if (type == baseMultiMode.type) {
+                return index
+            }
+        }
+        _i(tag, "findIndexByType  没有这个type  type=$type")
+        return 0
+    }
+
+    //当前adapter的type  在position中的下标
+    fun findPositionFirstByType(type: String): Int {
+        var currentIndex = 0
+        data.forEachIndexed { index, baseMultiMode ->
+            if (type == baseMultiMode.type) {
+                return currentIndex
+            }
+            val count = baseMultiMode.getItemCount()
+            currentIndex += count
+        }
+        _i(tag, "findIndexByType  没有这个type  type=$type")
+        return 0
+    }
+
+
+    //当前位置上面 第一个可见的type
+    fun findUpFirstTypeByPosition(position: Int): String {
+        var currentIndex = 0
+//        var typePosition=0
+        var firstType = BaseMultiMode.TYPE_NO
+        data.forEachIndexed { index, baseMultiMode ->
+            val count = baseMultiMode.getItemCount()
+            val haveType = baseMultiMode.type != BaseMultiMode.TYPE_NO
+            if (haveType) {
+                firstType = baseMultiMode.type
+//                typePosition=currentIndex
+            }
+            val max = currentIndex + count
+            if (position < max) {
+                // _i(tag,"findUpFirstTypePosition pos=$position   max=$max  current=$currentIndex  firstType$firstType $haveType ")
+                return firstType
+            } else {
+                currentIndex = max
+            }
+        }
+        _i(tag, "findUpFirstTypePositionByPosition  没有发现type  position=$position")
+        return BaseMultiMode.TYPE_NO
     }
 
     //在data中的下标 在adapter 中第一个显示位置position    indexMode从下标 0 开始
