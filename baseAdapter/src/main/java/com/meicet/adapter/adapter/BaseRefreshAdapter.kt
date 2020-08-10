@@ -34,7 +34,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
     }
 
     //重制空状态
-    open fun initStateView() {
+    open fun onStateViewAttach() {
         if (useStateView) {
             setEmptyStatus(StatusView(context))
         }
@@ -55,7 +55,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        initStateView()
+        onStateViewAttach()
         val refresh = recyclerView.parent ?: return
         if (refresh is Refreshable) {
             refreshable = refresh

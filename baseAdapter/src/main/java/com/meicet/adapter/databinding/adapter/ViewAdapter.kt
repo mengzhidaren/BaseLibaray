@@ -13,19 +13,27 @@ import com.meicet.adapter.utils.visiable
 
 
 @BindingAdapter("gone")
-fun bindGone(view: View, gone: Boolean){
+fun bindGone(view: View, gone: Boolean) {
     view.gone(gone)
 }
 
 
 @BindingAdapter("visibility")
-fun bindVisibility(view: View, visibility: Boolean){
+fun bindVisibility(view: View, visibility: Boolean) {
     view.visiable(visibility)
 }
 
 
 @BindingAdapter("isSelect")
 fun bindSelect(view: View, isSelect: Boolean) {
-   view.isSelected=isSelect
+    view.isSelected = isSelect
+}
+
+@BindingAdapter("onClickSelect")
+fun bindOnClickSelect(view: View, isSelect: Boolean) {
+    view.isSelected = isSelect
+    view.setOnClickListener {
+        it.isSelected = !it.isSelected
+    }
 }
 

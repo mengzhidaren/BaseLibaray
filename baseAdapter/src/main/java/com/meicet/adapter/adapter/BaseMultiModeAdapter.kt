@@ -6,7 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-//多类型适配  继承BaseMultiMode
+
+/**
+ * //多类型适配  继承BaseMultiMode
+ * 第一步  配置网络请求
+ *   adapter.onCallRequestPage={
+ *   Api.getData(
+ *   { adapter.loadPage(data)}
+ *   {adapter.loadPageError()}
+ *   )
+ *   ......
+ *   }
+ *   第二步
+ *   adapter.refreshUI()
+ */
 open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         BaseListAdapter<BaseMultiMode>(0, list) {
     private val tag = "BaseMultiModeAdapter"

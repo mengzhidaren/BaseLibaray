@@ -104,7 +104,7 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         if(pageInfo.isFirstPage){
             setNewInstance(null)
             onRefreshFinish()
-            statusView?.showError()
+            statusView?.showError(error)
         }else{
             if(loadMoreEnable){
                 loadMoreModule.isEnableLoadMore = true
