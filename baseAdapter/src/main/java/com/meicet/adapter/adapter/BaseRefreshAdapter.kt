@@ -1,10 +1,10 @@
 package com.meicet.adapter.adapter
 
 
-
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.meicet.adapter.base.TaskLife
 import com.meicet.adapter.view.Refreshable
 import com.meicet.adapter.view.StatusListener
 import com.meicet.adapter.view.StatusView
@@ -14,8 +14,10 @@ import com.meicet.adapter.view.StatusView
  * 下拉刷新的adapter  通过父类获取对像配置
  */
 abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableList<T>? = null) :
-        BaseQuickAdapter<T, BaseHolder>(layoutID, list) {
-
+    BaseQuickAdapter<T, BaseHolder>(layoutID, list) {
+    //网络请求生命周期管理
+    val taskLife = TaskLife()
+    val taskLifeOnce = TaskLife(true)
 
     var statusView: StatusListener? = null
 
@@ -29,7 +31,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
     abstract fun onPullRefresh()
 
     //完成下拉刷新请求  或者 错误重试
-    protected  fun onRefreshFinish() {
+    protected fun onRefreshFinish() {
         refreshable?.finishRefresh()
     }
 
@@ -41,11 +43,11 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
     }
 
 
-    fun setEmptyStatus(view: StatusListener){
-        useStateView=true
+    fun setEmptyStatus(view: StatusListener) {
+        useStateView = true
         setEmptyView(view.getEmptyView())
-        statusView=view
-        view.setCallBackStatus(object :StatusListener.OnCallBackStatus{
+        statusView = view
+        view.setCallBackStatus(object : StatusListener.OnCallBackStatus {
             override fun onClickError(statusEmpty: Boolean) {
                 onPullRefresh()
             }
@@ -69,6 +71,8 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        taskLife.onDestroy()
+        taskLifeOnce.onDestroy()
         refreshable?.setOnRefresh(null)
         super.onDetachedFromRecyclerView(recyclerView)
     }

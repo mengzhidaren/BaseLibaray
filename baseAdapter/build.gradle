@@ -36,6 +36,11 @@ android {
 
 dependencies {
 
+
+
+    //json
+//    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.squareup.okhttp3:okhttp:3.14.9'
     //json
 //    api 'com.google.code.gson:gson:2.8.6'
     //    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

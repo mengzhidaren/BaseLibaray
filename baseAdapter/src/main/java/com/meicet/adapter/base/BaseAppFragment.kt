@@ -15,6 +15,10 @@ abstract class BaseAppFragment(layout: Int) : Fragment(layout) {
     private val lifeHide = mutableListOf<(hidden: Boolean) -> Unit>()
     private val lifePage = mutableListOf<(isVisibleToUser: Boolean) -> Unit>()
 
+    //网络请求生命周期管理
+    val taskLife = TaskLife()
+    val taskLifeOnce = TaskLife(true)
+    
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         lifeHide.forEach {
@@ -31,6 +35,8 @@ abstract class BaseAppFragment(layout: Int) : Fragment(layout) {
     }
 
     override fun onDestroyView() {
+        taskLife.onDestroy()
+        taskLifeOnce.onDestroy()
         super.onDestroyView()
         lifeHide.clear()
     }
