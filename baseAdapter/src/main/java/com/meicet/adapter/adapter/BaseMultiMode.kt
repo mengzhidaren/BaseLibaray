@@ -1,9 +1,12 @@
 package com.meicet.adapter.adapter
+
+import android.graphics.Rect
+
 //layout 资源布局
 //type 主要用做查找 position功能
-abstract class BaseMultiMode(val layout: Int,val type:String=TYPE_NO) {
-    companion object{
-        const val TYPE_NO="-1"
+abstract class BaseMultiMode(val layout: Int, val type: String = TYPE_NO) {
+    companion object {
+        const val TYPE_NO = "-1"
     }
 
     val layoutType by lazy { layout }
@@ -15,6 +18,10 @@ abstract class BaseMultiMode(val layout: Int,val type:String=TYPE_NO) {
     open fun getGridSpanSize(spanCount: Int, position: Int): Int = spanCount
 
 
+    //BaseMultiModeAttachAdapter里面的 useDecoration = true  这里才能被调用
+    open fun getItemOffsets(outRect: Rect, position: Int) {
+
+    }
 
     //需要继承 BaseMultiModeAttachAdapter
     open fun onViewAttachedToWindow(holder: BaseHolder, position: Int) {}

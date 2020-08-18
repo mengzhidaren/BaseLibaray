@@ -1,10 +1,11 @@
 package com.meicet.adapter.adapter
 
 
+import android.graphics.Rect
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
 
 
 /**
@@ -20,10 +21,26 @@ import androidx.recyclerview.widget.RecyclerView
  *   第二步
  *   adapter.refreshUI()
  */
-open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
-        BaseListAdapter<BaseMultiMode>(0, list) {
+open class BaseMultiModeAdapter(
+    list: MutableList<BaseMultiMode>? = null,
+    private val useDecoration: Boolean = false
+) :
+    BaseListAdapter<BaseMultiMode>(0, list) {
     private val tag = "BaseMultiModeAdapter"
 
+    private val decoration = object : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view) - headerLayoutCount
+            if (position > -1 && data.isNotEmpty()) {
+                convertItemOffsets(outRect, position)
+            }
+        }
+    }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         setGridSpanSizeLookup { gridLayoutManager, viewType, position ->
@@ -45,6 +62,14 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
             spanCount
         }
         super.onAttachedToRecyclerView(recyclerView)
+        if (useDecoration)
+            recyclerView.addItemDecoration(decoration)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        if (useDecoration)
+            recyclerView.removeItemDecoration(decoration)
     }
 
     override fun getDefItemCount(): Int {
@@ -119,6 +144,23 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
         _i(tag, "convertData  不可能的错误  position=$position")
     }
 
+    fun convertItemOffsets(outRect: Rect, adapterPosition: Int) {
+        var currentIndex = 0
+        data.forEachIndexed { index, baseMultiMode ->
+            val childCount = baseMultiMode.getItemCount()
+            val max = currentIndex + childCount
+            if (adapterPosition < max) {
+                val childPos = childCount - (max - adapterPosition)
+                data[index].getItemOffsets(outRect, childPos)
+                return
+            } else {
+                currentIndex = max
+            }
+        }
+        _i(tag, "findChildPositionByAdapterPosition  不可能的错误   adapterPosition=$adapterPosition")
+    }
+
+
     //当前adapter的position  在data中的下标
     fun findIndexByPosition(position: Int): Int {
         var currentIndex = 0
@@ -164,18 +206,15 @@ open class BaseMultiModeAdapter(list: MutableList<BaseMultiMode>? = null) :
     //当前位置上面 第一个可见的type
     fun findUpFirstTypeByPosition(position: Int): String {
         var currentIndex = 0
-//        var typePosition=0
         var firstType = BaseMultiMode.TYPE_NO
         data.forEachIndexed { index, baseMultiMode ->
             val count = baseMultiMode.getItemCount()
             val haveType = baseMultiMode.type != BaseMultiMode.TYPE_NO
             if (haveType) {
                 firstType = baseMultiMode.type
-//                typePosition=currentIndex
             }
             val max = currentIndex + count
             if (position < max) {
-                // _i(tag,"findUpFirstTypePosition pos=$position   max=$max  current=$currentIndex  firstType$firstType $haveType ")
                 return firstType
             } else {
                 currentIndex = max
