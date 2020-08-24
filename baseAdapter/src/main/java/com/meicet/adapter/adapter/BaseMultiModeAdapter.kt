@@ -1,6 +1,7 @@
 package com.meicet.adapter.adapter
 
 
+import android.graphics.Canvas
 import android.graphics.Rect
 import android.util.Log
 import android.view.View
@@ -29,6 +30,14 @@ open class BaseMultiModeAdapter(
     private val tag = "BaseMultiModeAdapter"
 
     private val decoration = object : RecyclerView.ItemDecoration() {
+        //onDraw：在item绘制之前时被调用，将指定的内容绘制到item view内容之下；
+        override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+
+        }
+        //onDrawOver：在item被绘制之后调用，将指定的内容绘制到item view内容之上
+        override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+
+        }
         override fun getItemOffsets(
             outRect: Rect,
             view: View,
