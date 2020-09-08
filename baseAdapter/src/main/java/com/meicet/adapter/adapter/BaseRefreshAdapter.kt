@@ -3,7 +3,6 @@ package com.meicet.adapter.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.meicet.adapter.base.TaskLife
 import com.meicet.adapter.view.Refreshable
 import com.meicet.adapter.view.StatusListener
@@ -14,7 +13,7 @@ import com.meicet.adapter.view.StatusView
  * 下拉刷新的adapter  通过父类获取对像配置
  */
 abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableList<T>? = null) :
-    BaseQuickAdapter<T, BaseHolder>(layoutID, list) {
+    BaseQuickAdapter2<T, BaseHolder>(layoutID, list) {
     //网络请求生命周期管理
     val taskLife = TaskLife()
     val taskLifeOnce = TaskLife(true)

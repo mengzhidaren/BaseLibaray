@@ -81,6 +81,11 @@ open class BaseMultiModeAdapter(
             recyclerView.removeItemDecoration(decoration)
     }
 
+
+    override fun addData(newData: Collection<BaseMultiMode>) {
+        super.addData(newData)
+    }
+
     override fun getDefItemCount(): Int {
         var length = 0
         data.forEach {

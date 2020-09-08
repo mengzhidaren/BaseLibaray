@@ -1,5 +1,5 @@
 //include ':app'
 include ':baseAdapter'
-include ':baseAdapter1'
+//include ':baseAdapter1'
 
 rootProject.name = "BaseLibaray"

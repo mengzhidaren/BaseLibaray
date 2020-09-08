@@ -8,19 +8,17 @@ import androidx.databinding.ViewDataBinding
 import com.lxj.xpopup.core.CenterPopupView
 
 
-abstract class DialogCenterBinding<T:ViewDataBinding>(context: Context) : CenterPopupView(context) {
+abstract class DialogCenterBinding<T:ViewDataBinding>(context: Context,private val layoutID:Int) : CenterPopupView(context) {
 
 
     lateinit var binding:T
-    //绑定布局
-    abstract fun bindingLayout(): Int
     //初始化数据
     abstract fun create()
 
     override fun addInnerContent() {
         binding= DataBindingUtil.inflate(
                 LayoutInflater.from(context),
-                bindingLayout(),
+                layoutID,
                 centerPopupContainer,
                 false
         )

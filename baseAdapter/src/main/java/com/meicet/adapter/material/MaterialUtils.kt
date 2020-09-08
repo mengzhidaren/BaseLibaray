@@ -28,5 +28,4 @@ package com.meicet.adapter.material
 10.  怎么实现固定表头,写一个布局放在CollapsingToolbarLayout之后,AppBarLayout之内即可,
     如果放在CollapsingToolbarLayout之前,AppBarLayout之内会怎么样?这样折叠布局就不起作用了.不会折叠了.
  */
-object MaterialUtils {
-}
+object MaterialUtils
