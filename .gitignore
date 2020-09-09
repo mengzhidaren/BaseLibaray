@@ -8,3 +8,5 @@
 .cxx
 app/libs/
 /.idea/
+jcenter_push.gradle
+baseAdapter/src/main/java/com/meicet/adapter/databinding/adapter/0Tip.kt

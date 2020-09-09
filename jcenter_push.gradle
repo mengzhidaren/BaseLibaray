@@ -1,0 +1,175 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jetbrains.dokka-android'
+ext {
+
+    developerId ='yuyunlongyyl'
+    developerName ='yuyunlongyyl'
+    developerEmail ='yuyunlongyyl@gmail.com'
+
+
+    // library网站地址
+    siteUrl ='https://github.com/mengzhidaren/BaseLibaray.git'
+    // library仓库地址
+    gitUrl ='https://github.com/mengzhidaren/BaseLibaray.git'
+
+
+    // 开源许可证（这里是Apache 2.0）
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+
+    // 此处对应jcenter上面选择的仓库名称  例如：longyyl/maven/baseAdapter
+    bintrayRepo = 'maven'
+    // bintrayName 是你在网页Repository页面能看到的名称  就是maven仓库名
+    bintrayName = 'baseAdapter'
+    // library artifact（单个module一般就填写library name）
+    artifactID = 'baseAdapter'
+    // library的group id
+    publishedGroupId = 'com.meicet.adapter'
+    libraryName = 'baseAdapter'
+    libraryVersion = project.properties.get("VERSION_NAME")
+    libraryDescription = '封装一些常用的BaseAdapter 和工具类'
+
+}
+
+
+version = libraryVersion
+//important, if null, will issue: Maven group, artifact or version not match ...
+group = publishedGroupId
+
+if (project.hasProperty("kotlin")) { //Kotlin libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc, dependsOn: dokka) {
+
+    }
+}else if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//task dokkaJavadoc(type:org.jetbrains.dokka.gradle.DokkaTask) {
+//    outputFormat = 'javadoc'
+//    outputDirectory = "$buildDir/documentation"
+//}
+//解决kotlin javadoc.options抱错
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+//    externalDocumentationLink {
+//        url = new URL("any url you want, doesn't matter")
+//        packageListUrl = new URL("file:///${rootDir}/package-list")
+//    }
+}
+tasks.named("dokka"){
+    noStdlibLink = true
+    noJdkLink = true
+    noAndroidSdkLink = true
+}
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                groupId publishedGroupId
+                artifactId artifactID
+
+                // Add your description here
+                name libraryName
+                description libraryDescription
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name licenseName
+                        url licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id developerId
+                        name developerName
+                        email developerEmail
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('D:\\googleServerFile\\jcenter.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            name = libraryVersion
+            desc = libraryDescription
+//            gpg {
+//                sign = true //Determines whether to GPG sign the files. The default is false
+//                passphrase = properties.getProperty("bintray.gpg.password")
+//                //Optional. The passphrase for GPG signing'
+//            }
+        }
+    }
+}
+
+//使用说明
+//第一步：
+//gradlew install
+//第二步：上传到 jcenter :
+//gradle bintrayUpload

@@ -2,4 +2,4 @@
 include ':baseAdapter'
 //include ':baseAdapter1'
 
-rootProject.name = "BaseLibaray"
+//rootProject.name = "BaseLibaray"
