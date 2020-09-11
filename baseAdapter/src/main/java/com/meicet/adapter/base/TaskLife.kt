@@ -27,6 +27,3 @@ class TaskLife(private val oneSingle: Boolean = false) {
 
 }
 
-interface DisposableLife {
-    fun onDestroy()
-}

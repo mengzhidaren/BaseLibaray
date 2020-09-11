@@ -52,7 +52,7 @@ open class BaseMultiModeAdapter(
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        setGridSpanSizeLookup { gridLayoutManager, viewType, position ->
+        setGridSpanSizeLookup { gridLayoutManager, _, position ->
             var spanCount = gridLayoutManager.spanCount
             run breaking@{
                 var currentIndex = 0
@@ -205,7 +205,7 @@ open class BaseMultiModeAdapter(
     //当前adapter的type  在position中的下标
     fun findPositionFirstByType(type: String): Int {
         var currentIndex = 0
-        data.forEachIndexed { index, baseMultiMode ->
+        data.forEachIndexed { _, baseMultiMode ->
             if (type == baseMultiMode.type) {
                 return currentIndex
             }
@@ -221,7 +221,7 @@ open class BaseMultiModeAdapter(
     fun findUpFirstTypeByPosition(position: Int): String {
         var currentIndex = 0
         var firstType = BaseMultiMode.TYPE_NO
-        data.forEachIndexed { index, baseMultiMode ->
+        data.forEachIndexed { _, baseMultiMode ->
             val count = baseMultiMode.getItemCount()
             val haveType = baseMultiMode.type != BaseMultiMode.TYPE_NO
             if (haveType) {

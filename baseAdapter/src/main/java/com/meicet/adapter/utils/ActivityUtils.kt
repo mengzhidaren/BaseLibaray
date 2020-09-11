@@ -8,8 +8,6 @@ import android.os.Parcelable
 import java.io.Serializable
 
 
-
-
 inline fun <reified T : Activity> Context.startAty(vararg params: Pair<String, Any>) {
     val intent = Intent(this, T::class.java)
     if (params.isNotEmpty())
@@ -53,3 +51,6 @@ fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {
         return@forEach
     }
 }
+
+
+

@@ -118,20 +118,3 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
 }
 
 
-open class BasePageInfo {
-
-    val PAGE_SIZE = 10
-
-    var page = 1
-
-    fun nextPage() {
-        page++
-    }
-
-    fun reset() {
-        page = 1
-    }
-
-    val isFirstPage: Boolean
-        get() = page == 1
-}

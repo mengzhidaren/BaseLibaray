@@ -2,8 +2,10 @@ package com.meicet.adapter.base
 
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.*
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * Created by yyl on 2018-04-11.

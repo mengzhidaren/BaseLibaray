@@ -51,7 +51,7 @@ class AppException : Thread.UncaughtExceptionHandler {
 //        pw.close()
 //        return writer.toString()
 //    }
-    @Synchronized
+//    @Synchronized
     private fun writeToLogFile(msg: String) {
 //        val logFile=FileRoot.getCrashLogFile()
 //        FileIOUtils.writeFileFromString(

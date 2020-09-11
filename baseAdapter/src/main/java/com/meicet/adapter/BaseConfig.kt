@@ -1,10 +1,15 @@
 package com.meicet.adapter
 
 import android.app.Application
+import android.os.Debug
 import com.blankj.utilcode.util.Utils
 
 object BaseConfig {
-    val debug=BuildConfig.DEBUG
+    var debug=BuildConfig.DEBUG
+
+    fun openDebug(debug:Boolean){
+        this.debug=debug
+    }
 
     //App启动后初始化
     fun initConfig(app:Application) {
