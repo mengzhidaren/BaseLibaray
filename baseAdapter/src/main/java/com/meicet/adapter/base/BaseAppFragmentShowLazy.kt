@@ -2,7 +2,9 @@ package com.meicet.adapter.base
 
 import android.os.Bundle
 import android.view.View
-
+/**
+ * FragmentTransaction使用hide，show来切换Fragment时，延迟加载 show之后加载
+ */
 abstract class BaseAppFragmentShowLazy(layout:Int):BaseAppFragment(layout) {
 
     private var isInit=false
