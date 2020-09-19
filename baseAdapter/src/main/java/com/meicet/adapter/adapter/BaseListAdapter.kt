@@ -10,9 +10,11 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
     BaseRefreshAdapter<T>(layoutID, list),LoadMoreModule {
 
 
-    private val pageInfo = BasePageInfo()
+    val pageInfo = BasePageInfo()
     //是否启用loadMore
     private var loadMoreEnable=true
+    //有headerView时但没有数据---是否显示空布局
+    var headerBottomShowEmptyLayout=false
     init {
 //        setOnLoadMoreListener({})
         loadMoreModule.setOnLoadMoreListener {
@@ -20,6 +22,8 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         }
         //当自动加载开启，同时数据不满一屏时，是否继续执行自动加载更多(默认为true)
         loadMoreModule.isEnableLoadMoreIfNotFullPage = false
+        //空数据时是否显示 header
+        headerWithEmptyEnable=true
     }
 
     var onCallRequestPage: (page: BasePageInfo) -> Unit = {}
@@ -40,7 +44,6 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         refreshUI()
     }
 
-
     fun closeLoadMore(){
         loadMoreEnable=false
     }
@@ -54,50 +57,39 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         pageInfo.reset()
         onCallRequestPage.invoke(pageInfo)
     }
+
+
     //请求成功一页
     fun loadPage(list: List<T>?) {
         if(loadMoreEnable){
             loadMoreModule.isEnableLoadMore = true
         }
-        if (list == null) {
-//            _i("BaseListAdapter", "返回了空数据")
-            if(pageInfo.isFirstPage){
-                statusView?.showEmpty()
-            }else{
-                if(loadMoreEnable){
-                    loadMoreModule.loadMoreEnd()
-                }
-
-            }
-            return
-        }
         if (pageInfo.isFirstPage) {
             onRefreshFinish()
-            if(list.isEmpty()){
-//                statusView?.showStateEmpty()
+            if(list==null|| list.isEmpty()){
+                isUseEmpty = !(hasHeaderLayout()&&!headerBottomShowEmptyLayout)
                 statusView?.showEmpty()
+                setNewInstance(null)
+            }else{
+                setNewInstance(list.toMutableList())
             }
-            //如果是加载的第一页数据，用 setData()
-//            replaceData(list)
-            setNewInstance(list.toMutableList())
         } else {
-            if (list.isNotEmpty()) {
-                addData(list)
+            list?.let {
+                addData(it)
             }
         }
         if(loadMoreEnable){
-            if (list.size <pageInfo.PAGE_SIZE) {
-                    //第一页数据可能小于PAGE_SIZE   这时会不满一屏，就不显示加载完成
-                loadMoreModule.loadMoreEnd(data.size<pageInfo.PAGE_SIZE)
-//                loadMoreModule.loadMoreEnd()
+            if (list?.size?:0 <pageInfo.pageSize) {
+                    //第一页数据可能小于showPageSiz 这时会不满一屏，就不显示加载完成
+                loadMoreModule.loadMoreEnd(getDefItemCount()<pageInfo.showPageSize)
             } else {
+                //page加一
+                pageInfo.nextPage()
                 loadMoreModule.loadMoreComplete()
             }
         }else{
             loadMoreModule.loadMoreEnd(true)
         }
-        //        page加一
-        pageInfo.nextPage()
     }
     //请求失败
     fun loadPageError(error:String) {

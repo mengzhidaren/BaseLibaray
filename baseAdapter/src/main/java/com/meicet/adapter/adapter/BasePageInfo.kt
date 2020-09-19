@@ -2,7 +2,8 @@ package com.meicet.adapter.adapter
 
 open class BasePageInfo {
 
-    val PAGE_SIZE = 10
+    var pageSize = 10
+    var showPageSize = pageSize
 
     var page = 1
 
