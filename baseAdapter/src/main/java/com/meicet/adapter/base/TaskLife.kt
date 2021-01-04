@@ -2,6 +2,7 @@ package com.meicet.adapter.base
 
 class TaskLife(private val oneSingle: Boolean = false) {
     private val lifeList = HashMap<Int, DisposableLife>()
+
     fun onDestroy() {
         if (lifeList.isEmpty()) return
         synchronized(TaskLife::class.java) {

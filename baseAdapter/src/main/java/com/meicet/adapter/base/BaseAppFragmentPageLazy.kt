@@ -6,6 +6,7 @@ import android.view.View
 /**
  * viewPage 延迟加载
  */
+@Deprecated("用新版本吧")
 abstract class BaseAppFragmentPageLazy(layout: Int) : BaseAppFragment(layout) {
     private var isLoaded = false
     private var isInit = false

@@ -5,6 +5,7 @@ import android.view.View
 /**
  * FragmentTransaction使用hide，show来切换Fragment时，延迟加载 show之后加载
  */
+@Deprecated("用新版本吧")
 abstract class BaseAppFragmentShowLazy(layout:Int):BaseAppFragment(layout) {
 
     private var isInit=false

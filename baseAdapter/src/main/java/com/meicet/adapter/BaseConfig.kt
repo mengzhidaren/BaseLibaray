@@ -6,6 +6,8 @@ import com.blankj.utilcode.util.Utils
 
 object BaseConfig {
     var debug=BuildConfig.DEBUG
+    @JvmStatic
+    var onClickTimeDebouncing=200L
 
     fun openDebug(debug:Boolean){
         this.debug=debug

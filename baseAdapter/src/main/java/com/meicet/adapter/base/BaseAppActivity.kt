@@ -7,7 +7,7 @@ abstract class BaseAppActivity : AppCompatActivity() {
     //网络请求生命周期管理
     val taskLife = TaskLife()
     val taskLifeOnce = TaskLife(true)
-    protected lateinit var context:BaseAppActivity
+    lateinit var context:BaseAppActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
