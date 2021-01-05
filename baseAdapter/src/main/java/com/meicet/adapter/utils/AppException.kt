@@ -13,13 +13,14 @@ class AppException : Thread.UncaughtExceptionHandler {
         val instance = AppException()
     }
 
+    var onCallBack: (v: String) -> Unit = {}
     fun init() {
         Thread.setDefaultUncaughtExceptionHandler(this)
     }
 
     override fun uncaughtException(thread: Thread?, ex: Throwable?) {
         println("程序挂掉了")
-        if(ex==null){
+        if (ex == null) {
             Process.killProcess(Process.myPid())
             System.exit(1)
             return
@@ -27,7 +28,7 @@ class AppException : Thread.UncaughtExceptionHandler {
         val sb = StringBuilder()
         val head = "************* Log Head ****************" +
                 "[---------程序挂掉-----]:${TimeUtils.getNowString()} "
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +
+        "\nDevice Manufacturer: " + Build.MANUFACTURER +
                 "\nDevice Model       : " + Build.MODEL +
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +
                 "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
@@ -41,7 +42,7 @@ class AppException : Thread.UncaughtExceptionHandler {
         AppUtils.exitApp()
     }
 
-//    /**
+    //    /**
 //     * 获取错误的信息
 //     */
 //    private fun getErrorInfo(arg1: Throwable): String {
@@ -59,6 +60,7 @@ class AppException : Thread.UncaughtExceptionHandler {
 //            msg,
 //            true
 //        )
+        onCallBack.invoke(msg)
     }
 
 }
