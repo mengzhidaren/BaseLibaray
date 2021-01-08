@@ -1,4 +1,5 @@
-RxJava 五种“生产者”的区别：
+####  五种“生产者”的区别：
+```
   Observable ，可多次发送事件，直到 onComplete 或 onError 被调用结束订阅。
   Flowable ，和 Observable 一样。并且可以处理背压（下游处理速度比上游发送速度要慢）。
   Single ，单次发送事件（onSuccess、onError），发完即结束订阅。
@@ -10,3 +11,4 @@ RxJava 五种“生产者”的区别：
   Maybe:相当于上面 Completable 与 Single 的结合体。考虑场景使用即可。
   Observable:当消费者需要处理生产者多次事件时。例如：TCP 长连接；需要逐个处理列表数据时。
   Flowable:都可以做到 Observable 。并且支持背压。例如：下载大文件，可能网络传输速度比本地写入快时。
+```
