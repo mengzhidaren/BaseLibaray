@@ -46,7 +46,10 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
     }
 
     //重新从第一页开始请求
-    fun refreshUI() {
+    fun refreshUI(clear:Boolean=false) {
+        if(clear){
+            setNewInstance(null)
+        }
         statusView?.showLoading()
         if (loadMoreEnable) {
             loadMoreModule.isEnableLoadMore = false

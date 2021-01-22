@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.meicet.adapter.adapter.BaseHolder
 import com.meicet.adapter.adapter.BaseListAdapter
+import com.meicet.adapter.adapter.BaseTAdapter
 import com.meicet.adapter.base.BaseAppActivity
 import com.meicet.adapter.base.BaseAppActivityBinding
 import com.yyl.main.databinding.ActivityMainBinding
@@ -14,9 +15,19 @@ import com.yyl.main.databinding.ActivityMainBinding
 class MainActivity : BaseAppActivityBinding<ActivityMainBinding>() {
     override fun bindingLayout()=R.layout.activity_main
 
-    val adapter=object :BaseListAdapter<String>(R.layout.item_text){
+//    val adapter=object :BaseListAdapter<String>(R.layout.item_text){
+//        override fun convert(holder: BaseHolder, item: String) {
+//            holder.setText(R.id.title1,"$item=${holder.adapterPosition}")
+//        }
+//    }
+    val adapter=object :BaseTAdapter<String>(R.layout.item_text){
         override fun convert(holder: BaseHolder, item: String) {
             holder.setText(R.id.title1,"$item=${holder.adapterPosition}")
+        }
+        init {
+            onCallRequestPage={
+                loadPage(arrayListOf("ccccccc","ddddddddd","ssssssssssss"))
+            }
         }
     }
 

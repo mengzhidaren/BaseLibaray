@@ -13,7 +13,7 @@
 ```
 dependencies {
         
-        implementation 'com.meicet.adapter:baseAdapter:1.1.0'
+        implementation 'com.meicet.adapter:baseAdapter:1.1.3'
    }
 ```
 
