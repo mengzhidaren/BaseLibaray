@@ -108,7 +108,7 @@ open class BaseMultiModeAdapter(
                 currentIndex = max
             }
         }
-        _i(tag, "getDefItemViewType 不可能的错误 position=$position")
+        ___ii(tag, "getDefItemViewType 不可能的错误 position=$position")
         return 0
     }
 
@@ -155,7 +155,7 @@ open class BaseMultiModeAdapter(
                 currentIndex = max
             }
         }
-        _i(tag, "convertData  不可能的错误  position=$position")
+        ___ii(tag, "convertData  不可能的错误  position=$position")
     }
 
     fun convertItemOffsets(outRect: Rect, adapterPosition: Int) {
@@ -171,7 +171,7 @@ open class BaseMultiModeAdapter(
                 currentIndex = max
             }
         }
-        _i(tag, "findChildPositionByAdapterPosition  不可能的错误   adapterPosition=$adapterPosition")
+        ___ii(tag, "findChildPositionByAdapterPosition  不可能的错误   adapterPosition=$adapterPosition")
     }
 
 
@@ -187,7 +187,7 @@ open class BaseMultiModeAdapter(
                 currentIndex = max
             }
         }
-        _i(tag, "findPositionIndex  不可能的错误   position=$position")
+        ___ii(tag, "findPositionIndex  不可能的错误   position=$position")
         return 0
     }
 
@@ -198,7 +198,7 @@ open class BaseMultiModeAdapter(
                 return index
             }
         }
-        _i(tag, "findIndexByType  没有这个type  type=$type")
+        ___ii(tag, "findIndexByType  没有这个type  type=$type")
         return 0
     }
 
@@ -212,7 +212,7 @@ open class BaseMultiModeAdapter(
             val count = baseMultiMode.getItemCount()
             currentIndex += count
         }
-        _i(tag, "findIndexByType  没有这个type  type=$type")
+        ___ii(tag, "findIndexByType  没有这个type  type=$type")
         return 0
     }
 
@@ -234,7 +234,7 @@ open class BaseMultiModeAdapter(
                 currentIndex = max
             }
         }
-        _i(tag, "findUpFirstTypePositionByPosition  没有发现type  position=$position")
+        ___ii(tag, "findUpFirstTypePositionByPosition  没有发现type  position=$position")
         return BaseMultiMode.TYPE_NO
     }
 
@@ -248,7 +248,7 @@ open class BaseMultiModeAdapter(
                 currentIndex += baseMultiMode.getItemCount()
             }
         }
-        _i(tag, "findIndexFirstPosition  不可能的错误   indexMode=$dataIndex")
+        ___ii(tag, "findIndexFirstPosition  不可能的错误   indexMode=$dataIndex")
         return 0
     }
 
@@ -258,7 +258,7 @@ open class BaseMultiModeAdapter(
 
     }
 
-    private fun _i(tag: String, msg: String) {
+    private fun ___ii(tag: String, msg: String) {
         Log.e(tag, msg)
     }
 }

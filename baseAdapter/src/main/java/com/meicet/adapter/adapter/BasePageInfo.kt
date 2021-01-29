@@ -15,6 +15,5 @@ open class BasePageInfo {
         page = 1
     }
 
-    val isFirstPage: Boolean
-        get() = page == 1
+    fun isFirstPage()=page == 1
 }

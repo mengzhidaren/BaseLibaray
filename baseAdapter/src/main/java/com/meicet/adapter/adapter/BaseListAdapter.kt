@@ -46,8 +46,8 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
     }
 
     //重新从第一页开始请求
-    fun refreshUI(clear:Boolean=false) {
-        if(clear){
+    open fun refreshUI(clear: Boolean = false) {
+        if (clear) {
             setNewInstance(null)
         }
         statusView?.showLoading()
@@ -60,11 +60,11 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
 
 
     //请求成功一页
-    fun loadPage(list: List<T>?) {
+    open fun loadPage(list: List<T>?) {
         if (loadMoreEnable) {
             loadMoreModule.isEnableLoadMore = true
         }
-        if (pageInfo.isFirstPage) {
+        if (pageInfo.isFirstPage()) {
             onRefreshFinish()
             if (list == null || list.isEmpty()) {
                 isUseEmpty = !(hasHeaderLayout() && !headerBottomShowEmptyLayout)
@@ -79,9 +79,9 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
             }
         }
         if (loadMoreEnable) {
-            if (list?.size ?: 0 < pageInfo.pageSize) {
+            if (haveMoreData(list?.size ?: 0)) {
                 //第一页数据可能小于showPageSiz 这时会不满一屏，就不显示加载完成
-                loadMoreModule.loadMoreEnd(getDefItemCount() < pageInfo.showPageSize)
+                loadMoreModule.loadMoreEnd(loadMoreEndGone())
             } else {
                 //page加一
                 pageInfo.nextPage()
@@ -92,9 +92,22 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         }
     }
 
-    //请求失败
-    fun loadPageError(error: String) {
-        if (pageInfo.isFirstPage) {
+    /**
+     *     是否还有下一页数据
+     */
+    open fun haveMoreData(currentSize: Int) = currentSize < pageInfo.pageSize
+
+    /**
+     *     是否隐藏加载更多的view
+     */
+    open fun loadMoreEndGone() = getDefItemCount() < pageInfo.showPageSize
+
+
+    /**
+     *     请求失败
+     */
+    open fun loadPageError(error: String) {
+        if (pageInfo.isFirstPage()) {
             setNewInstance(null)
             onRefreshFinish()
             statusView?.showError(error)
@@ -109,7 +122,6 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
     }
 
     init {
-//        setOnLoadMoreListener({})
         loadMoreModule.setOnLoadMoreListener {
             loadMoreUI()
         }
