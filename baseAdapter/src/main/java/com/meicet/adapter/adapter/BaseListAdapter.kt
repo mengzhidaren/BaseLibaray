@@ -47,7 +47,7 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
 
     //重新从第一页开始请求
     open fun refreshUI(clear: Boolean = false) {
-        if (clear) {
+        if (clear) {//有数据时会清空显示出来loading
             setNewInstance(null)
         }
         statusView?.showLoading()
@@ -57,6 +57,16 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
         pageInfo.reset()
         onCallRequestPage.invoke(pageInfo)
     }
+
+    /**
+     * 是否最后一页   true 没有更多数据，不在请求onCallRequestPage     false 还有下一页
+     */
+    open fun onLoadMoreEndPage(list: List<T>?) = list?.size ?: 0 < pageInfo.pageSize
+
+    /**
+     * 滑到底后 是否隐藏加载更多的view   true消失
+     */
+    open fun onLoadMoreGone() = getDefItemCount() < pageInfo.showPageSize
 
 
     //请求成功一页
@@ -79,9 +89,9 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
             }
         }
         if (loadMoreEnable) {
-            if (haveMoreData(list?.size ?: 0)) {
+            if (onLoadMoreEndPage(list)) {
                 //第一页数据可能小于showPageSiz 这时会不满一屏，就不显示加载完成
-                loadMoreModule.loadMoreEnd(loadMoreEndGone())
+                loadMoreModule.loadMoreEnd(onLoadMoreGone())
             } else {
                 //page加一
                 pageInfo.nextPage()
@@ -91,16 +101,6 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
             loadMoreModule.loadMoreEnd(true)
         }
     }
-
-    /**
-     *     是否还有下一页数据
-     */
-    open fun haveMoreData(currentSize: Int) = currentSize < pageInfo.pageSize
-
-    /**
-     *     是否隐藏加载更多的view
-     */
-    open fun loadMoreEndGone() = getDefItemCount() < pageInfo.showPageSize
 
 
     /**

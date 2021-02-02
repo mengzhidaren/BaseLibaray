@@ -8,4 +8,6 @@ object BaseConfig {
     fun openDebug(debug:Boolean){
         this.debug=debug
     }
+
+    var PageSize=15
 }

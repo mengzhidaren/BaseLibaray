@@ -6,9 +6,10 @@ interface StatusListener {
 
     fun setCallBackStatus(callBack: OnCallBackStatus)
 
-    fun getEmptyView():View
+    fun getStatusView():View
 
-
+    fun setTextColor(color:Int)
+    fun setTextSize(textSP: Float)
     fun showEmpty(info: String="")
     fun showLoading(info: String="")
     fun showError(info: String="")

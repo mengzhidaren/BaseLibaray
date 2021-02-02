@@ -2,6 +2,7 @@ package com.meicet.adapter.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
 import com.meicet.adapter.R
@@ -17,8 +18,8 @@ class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, a
     private val status_error = 3
     private var currentState = status_empty
 
-    var onCallback= object : StatusListener.OnCallBackStatus {
-        override fun onClickError(statusEmpty:Boolean) {
+    var onCallback = object : StatusListener.OnCallBackStatus {
+        override fun onClickError(statusEmpty: Boolean) {
 
         }
     }
@@ -36,9 +37,19 @@ class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, a
         this.onCallback = callBack
     }
 
-    override fun getEmptyView()=this
+    override fun getStatusView() = this
 
+    override fun setTextColor(color: Int) {
+        emptyInfo.setTextColor(color)
+        errorInfo.setTextColor(color)
+        loadInfo.setTextColor(color)
+    }
 
+    override fun setTextSize(textSP: Float) {
+        emptyInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSP)
+        errorInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSP)
+        loadInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSP)
+    }
 
     fun setEmptyText(info: String) {
         emptyInfo.text = info
@@ -50,12 +61,6 @@ class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, a
 
     fun setLoadText(info: String) {
         loadInfo.text = info
-    }
-
-    fun setTextColor(colorText: Int) {
-        emptyInfo.setTextColor(colorText)
-        errorInfo.setTextColor(colorText)
-        loadInfo.setTextColor(colorText)
     }
 
 
@@ -84,12 +89,10 @@ class StatusView(context: Context, attr: AttributeSet?) : FrameLayout(context, a
     }
 
     private fun refreshView() {
-
         emptyView.gone(currentState != status_empty)
         loadView.gone(currentState != status_loading)
         errorView.gone(currentState != status_error)
     }
-
 
 
 }

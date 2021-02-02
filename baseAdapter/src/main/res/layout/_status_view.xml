@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:layout_gravity="center"
-            android:text="没有内容" />
+            android:text="似乎什么都没有" />
     </FrameLayout>
 
     <FrameLayout
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="服务似乎出了点小差" />
+            android:text="未知错误，请重试" />
 
     </FrameLayout>
 
@@ -52,6 +52,7 @@
 
         <TextView
             android:id="@+id/loadInfo"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"

@@ -1,8 +1,10 @@
 package com.meicet.adapter.adapter
 
+import com.meicet.adapter.BaseConfig
+
 open class BasePageInfo {
 
-    var pageSize = 10
+    var pageSize = BaseConfig.PageSize
     var showPageSize = pageSize
 
     var page = 1

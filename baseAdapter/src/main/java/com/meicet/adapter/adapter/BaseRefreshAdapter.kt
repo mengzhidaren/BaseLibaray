@@ -44,7 +44,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     fun setEmptyStatus(view: StatusListener) {
         useStateView = true
-        setEmptyView(view.getEmptyView())
+        setEmptyView(view.getStatusView())
         statusView = view
         view.setCallBackStatus(object : StatusListener.OnCallBackStatus {
             override fun onClickError(statusEmpty: Boolean) {
