@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity
 abstract class BaseAppFragment(layout: Int) : Fragment(layout) {
 
     private val lifeHide = mutableListOf<(hidden: Boolean) -> Unit>()
-    private val lifePage = mutableListOf<(isVisibleToUser: Boolean) -> Unit>()
 
     //网络请求生命周期管理
     val taskLife = TaskLife()
@@ -25,13 +24,6 @@ abstract class BaseAppFragment(layout: Int) : Fragment(layout) {
             it.invoke(hidden)
         }
 
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        lifePage.forEach {
-            it.invoke(isVisibleToUser)
-        }
     }
 
     override fun onDestroyView() {

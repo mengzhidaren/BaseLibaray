@@ -55,7 +55,7 @@ dependencies {
     //常用工具库  https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-CN.md
     api 'com.blankj:utilcodex:1.30.5'
     //适配器  https://github.com/CymChad/BaseRecyclerViewAdapterHelper   自带混淆规则
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     //一个通用的RecyclerView的分割线，支持LinearLayoutManager和GridLayoutManager
     //https://github.com/yanyusong/Y_DividerItemDecoration
