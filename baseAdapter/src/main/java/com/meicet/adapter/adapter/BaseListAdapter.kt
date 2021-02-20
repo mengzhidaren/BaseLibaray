@@ -84,8 +84,8 @@ abstract class BaseListAdapter<T>(@LayoutRes layoutID: Int = 0, list: MutableLis
                 setNewInstance(list.toMutableList())
             }
         } else {
-            list?.let {
-                addData(it)
+            if(!list.isNullOrEmpty()){
+                addData(list)
             }
         }
         if (loadMoreEnable) {

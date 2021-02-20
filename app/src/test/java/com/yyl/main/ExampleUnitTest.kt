@@ -14,4 +14,13 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+
+    @Test
+    fun test223(){
+        val skip=   "113,155,latest,0,"
+        val list=   skip.split(',')
+        println(list)
+    }
+
 }

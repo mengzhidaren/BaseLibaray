@@ -22,6 +22,9 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     private var refreshable: Refreshable? = null
     private var useStateView = true
+
+    var isAttached = false
+
     fun closeStateView() {
         useStateView = false
     }
@@ -56,6 +59,7 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
+        isAttached=true
         onStateViewAttach()
         val refresh = recyclerView.parent ?: return
         if (refresh is Refreshable) {
@@ -66,10 +70,12 @@ abstract class BaseRefreshAdapter<T>(@LayoutRes layoutID: Int = 0, list: Mutable
                 }
             })
         }
+
     }
 
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        isAttached=false
         taskLife.onDestroy()
         taskLifeOnce.onDestroy()
         refreshable?.setOnRefresh(null)
