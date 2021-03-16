@@ -1,4 +1,4 @@
-package com.yyl.viewbinding.adapter
+package com.meicet.adapter.databinding.adapter
 
 import android.graphics.drawable.LevelListDrawable
 import android.widget.TextView

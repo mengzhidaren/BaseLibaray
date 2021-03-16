@@ -6,20 +6,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.meicet.adapter.databinding.line.LineBottom
 import com.meicet.adapter.databinding.line.LineBottomColor
 
-object RecyclerViewAdapter {
-    @JvmStatic
-    @BindingAdapter("adapter")
-    fun setAdapter(recyclerView: RecyclerView, adapter: BaseQuickAdapter<*, *>?) {
-        recyclerView.adapter = adapter
-    }
-    @JvmStatic
-    @BindingAdapter("lineBottom")
-    fun setLineState(recyclerView: RecyclerView, sizeHeight: Float) {
-        recyclerView.addItemDecoration(LineBottom(recyclerView.context, sizeHeight))
-    }
-    @JvmStatic
-    @BindingAdapter("lineColor")
-    fun setLineState(recyclerView: RecyclerView, color: Int) {
-        recyclerView.addItemDecoration(LineBottomColor(recyclerView.context, color))
-    }
+
+@BindingAdapter("adapter")
+fun setAdapter(recyclerView: RecyclerView, adapter: BaseQuickAdapter<*, *>?) {
+    recyclerView.adapter = adapter
+}
+
+@BindingAdapter("lineBottom")
+fun setLineState(recyclerView: RecyclerView, sizeHeight: Float) {
+    recyclerView.addItemDecoration(LineBottom(recyclerView.context, sizeHeight))
+}
+
+@BindingAdapter("lineColor")
+fun setLineState(recyclerView: RecyclerView, color: Int) {
+    recyclerView.addItemDecoration(LineBottomColor(recyclerView.context, color))
 }

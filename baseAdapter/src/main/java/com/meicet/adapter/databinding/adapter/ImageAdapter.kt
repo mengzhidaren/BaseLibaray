@@ -1,4 +1,4 @@
-package com.yyl.viewbinding.adapter
+package com.meicet.adapter.databinding.adapter
 
 import android.net.Uri
 import android.text.TextUtils

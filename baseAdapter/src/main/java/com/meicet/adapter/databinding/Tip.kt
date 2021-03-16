@@ -1,4 +1,4 @@
-package com.yyl.viewbinding
+package com.meicet.adapter.databinding
 
 /***
 动态设置颜色
