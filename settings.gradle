@@ -2,3 +2,7 @@ include ':app'
 include ':baseAdapter'
 
 //rootProject.name = "BaseLibaray"
+
+//下面外部项目引用  已经有多个工程重复引用 baseAdapter 维护时方便同时修改
+//include ':baseAdapter'
+//project(':baseAdapter').projectDir = new File('githublib/BaseLibaray/baseAdapter')
