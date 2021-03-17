@@ -7,8 +7,8 @@ import androidx.databinding.BindingAdapter
 import java.io.File
 
 
-@BindingAdapter("imageLevel")
-fun setlevel(imageView: ImageView, level: Int) {
+@BindingAdapter("level")
+fun setImageLevel(imageView: ImageView, level: Int) {
     imageView.setImageLevel(level)
 }
 
