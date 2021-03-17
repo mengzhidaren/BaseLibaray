@@ -1,0 +1,233 @@
+1. android:shadowColor：阴影的颜色
+2. android:shadowDx：水平方向上的偏移量
+3. android:shadowDy：垂直方向上的偏移量
+4. Android:shadowRadius：是阴影的的半径大少
+
+android:includeFontPadding      为上标和下标留出足够的空间，以取代字体上下标.默认为真.设置文本是否包含顶部和底部的额外空白
+
+Paint的API
+
+// paint恢复为默认设置。
+paint.reset();
+
+// 从src目录中装载一种画笔的样式
+paint.set(src);
+
+// 设置画笔的透明度
+paint.setAlpha(a);
+
+// 设置画笔的抗锯齿情况，使画笔更为圆滑
+paint.setAntiAlias(aa);
+
+// 设个画笔的ARGB颜色色值
+paint.setARGB(a, r, g, b);
+
+// 设置画笔的颜色
+paint.setColor(color);
+
+// 设置画笔的过滤器
+paint.setColorFilter(filter);
+
+// 设置清除抖动对图像的影响，会使绘制出来的图片图像更加清晰，颜色更加平滑和饱满.
+paint.setDither(dither);
+
+// 设置粗体文字，注意设置在小字体上效果会非常差
+paint.setFakeBoldText(fakeBoldText);
+
+// 如果该项设置为true，则图像在动画进行中会滤掉对Bitmap图像的优化操作，加快速度显示
+// 注意:本设置项依赖于dither和xfermode的设置
+paint.setFilterBitmap(filter);
+
+// 给画笔做上标记，以便直接复用
+paint.setFlags(flags);
+
+// 设置画笔的隐藏模式
+paint.setHinting(mode);
+
+// 设置线性文本
+paint.setLinearText(linearText);
+
+// 设置MaskFilter，可以用不同的MaskFilter实现滤镜的效果，如滤化，立体等
+paint.setMaskFilter(maskfilter);
+
+// 设置绘制路径的效果，如点画线等
+paint.setPathEffect(effect);
+
+// 设置或清除的光栅对象。
+// 通过空清除任何以前的光栅化。为方便起见，传递的参数也回来了。
+paint.setRasterizer(rasterizer);
+
+// 设置或清除渲染对象。
+// 通过空清以前的任何材质。为方便起见，传递的参数也回来了。
+paint.setShader(shader);
+
+// 这原图层下面设置阴影层，产生阴影效果，radius为阴影的角度，dx和dy为阴影在x轴和y轴上的距离，color为阴影的颜色。如果半径为0，然后一层阴影去除。
+paint.setShadowLayer(radius, dx, dy, color);
+
+// 设置画笔带有删除线效果的
+paint.setStrikeThruText(strikeThruText);
+
+// 当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的图形样式，如圆形样式
+// Cap.ROUND,或方形样式Cap.SQUARE
+paint.setStrokeCap(cap);
+
+// 设置笔画的倾斜度
+paint.setStrokeMiter(miter);
+
+// 设置画笔结合处的样式，Miter:结合处为锐角， Round:结合处为圆弧：BEVEL：结合处为直线。
+paint.setStrokeJoin(join);
+
+// 当画笔是空心样式时，设置画笔空心的宽度
+paint.setStrokeWidth(width);
+
+// 设置画笔的样式
+// Paint.Style.FILL(实心)；
+// Paint.Style.STROKE(空心)；
+// Paint.Style.FILL_AND_STROKE
+paint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+// 设置该项为true，将有助于文本在LCD屏幕上的显示效果
+paint.setSubpixelText(subpixelText);
+
+// 设置绘制文字的对齐方向
+paint.setTextAlign(align);
+
+// 设置文本的区域比如中文、日文等
+paint.setTextLocale(locale);
+
+// 设置画笔文本的缩放比例
+paint.setTextScaleX(scaleX);
+
+// 设置画笔文本的大小
+paint.setTextSize(textSize);
+
+// 设置斜体文字，skewX为倾斜弧度
+paint.setTextSkewX(skewX);
+
+// 设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等
+paint.setTypeface(typeface);
+
+//设置带有下划线的文字效果
+paint.setUnderlineText(underlineText);
+
+//设置图形重叠时的处理方式，如合并，取交集或并集，经常用来制作橡皮的擦除效果
+paint.setXfermode(xfermode);
+
+
+// 1.基准点是baseline
+        // 2.ascent：是baseline之上至字符最高处的距离
+        // 3.descent：是baseline之下至字符最低处的距离
+        paint.ascent();
+        paint.descent();
+
+        // 清除透明阴影层。
+        paint.clearShadowLayer();
+
+        // 获取画笔透明度
+        paint.getAlpha();
+
+        // 获取画笔颜色
+        paint.getColor();
+
+        // 获取画笔过滤器
+        paint.getColorFilter();
+
+        // 获取
+        paint.getFillPath(src, dst);
+
+        // 获取该笔的标志，
+        paint.getFlags();
+
+        // 测量字体的大小
+        paint.getFontMetrics();
+        paint.getFontMetrics(metrics);
+        paint.getFontMetricsInt();
+        paint.getFontMetricsInt(fmi);
+
+        // 获取字体的间距
+        paint.getFontSpacing();
+
+        // 返回画笔的隐藏模式。返回hinting_off或hinting_on。
+        paint.getHinting();
+
+        // 获取maskfilter对象
+        paint.getMaskFilter();
+
+        // 获取patheffect对象
+        paint.getPathEffect();
+
+        // 获取油漆的光栅化（或NULL）。
+        // 光栅控制/修改/文本路径如何变成透明遮罩。
+        paint.getRasterizer();
+
+        //获取shader对象
+        paint.getShader();
+
+        //获取Cap实例控制如何开始和结束的抚摸线和路径的处理
+        paint.getStrokeCap();
+        paint.getStrokeJoin();
+
+        //获取画笔的斜角
+        paint.getStrokeMiter();
+
+        //获取画笔宽度
+        paint.getStrokeWidth();
+
+        //返回画笔的样式
+        paint.getStyle();
+
+        //获取文本的其实位置
+        paint.getTextAlign();
+
+        //返回文字的边界
+        paint.getTextBounds(text, index, count, bounds);
+        paint.getTextBounds(text, start, end, bounds);
+
+        //返回文字的区域
+        paint.getTextLocale();
+
+        //返回文字的路径
+        paint.getTextPath(text, index, count, x, y, path);
+        paint.getTextPath(text, start, end, x, y, path);
+
+        //返回X轴文字的缩放
+        paint.getTextScaleX();
+
+        //返回文字的大小
+        paint.getTextSize();
+
+        //返回文字的倾斜度
+        paint.getTextSkewX();
+
+        //返回文字的宽度
+        paint.getTextWidths(text, widths);
+        paint.getTextWidths(text, index, count, widths);
+        paint.getTextWidths(text, start, end, widths);
+        paint.getTextWidths(text, start, end, widths);
+
+        //设定一个最大宽度，在不超过这个宽度的话返回实际测量值，超过则停止测量
+        paint.breakText(text, measureForwards, maxWidth, measuredWidth);
+        paint.breakText(text, index, count, maxWidth, measuredWidth);
+        paint.breakText(text, start, end, measureForwards, maxWidth,
+                measuredWidth);
+
+        //返回typeface对象，对文字进行字体绘制或测量文本
+        paint.getTypeface();
+
+        //返回getXfermode对象
+        paint.getXfermode();
+
+        paint.isAntiAlias();
+        paint.isDither();
+        paint.isFakeBoldText();
+        paint.isFilterBitmap();
+        paint.isLinearText();
+        paint.isStrikeThruText();
+        paint.isSubpixelText();
+        paint.isUnderlineText();
+
+        //对文字进行测量
+        paint.measureText(text);
+        paint.measureText(text, index, count);
+        paint.measureText(text, start, end);
+        paint.measureText(text, start, end);
