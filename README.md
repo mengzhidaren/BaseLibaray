@@ -1,3 +1,6 @@
+#### 防火墙太烦人了 转移到国内gitee
+https://gitee.com/longyyl/BaseLibaray.git
+
 # BaseLibaray
 新项目依赖工具库
 开发新工程时集成常用的工具库
